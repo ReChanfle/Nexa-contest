@@ -1,0 +1,25 @@
+.table-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.table {
+    width: 80%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+
+}
+
+.table th,
+.table td {
+    border: 1px solid #282c34;
+    text-align: left;
+    padding: 8px;
+    color: #ffffff;
+}
+
+.table th {
+    background: linear-gradient(45deg, #4a00e0, #8e2de2);
+    color: #ffffff;
+}

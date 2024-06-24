@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import nexaLogo from './images/nexa-logo-mark-text-white.svg';
+import Button from '../src/components/Button';
 import './App.css';
+import {useGetRichListsQuery} from "./redux/features/getRichListQuery";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+
+    const { data, error, isLoading, isSuccess, refetch } = useGetRichListsQuery();
+    const handleClick = () => {
+
+        console.log('click');
+    }
+    console.log(data);
+
+    return (
+        <div className="App">
+            <header className="App-header">
+                <div className="logo-container">
+                    <img src={nexaLogo} className="nexa-logo" alt="logo"/>
+                </div>
+            </header>
+            <Button  />
+        </div>
+    );
+};
 
 export default App;
