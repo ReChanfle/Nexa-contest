@@ -1,0 +1,10 @@
+.input-field {
+    width: 5vh;
+    height: 5vh;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-size: 2vh;
+    font-weight: bold;
+}
