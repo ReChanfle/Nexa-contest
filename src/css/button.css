@@ -7,10 +7,12 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 1.3rem;
+    font-weight: bold;
     margin: 4px 2px;
     cursor: pointer;
-    width:20vh;
+    width:30vh;
+    height:8vh;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, box-shadow 0.2s;
@@ -19,4 +21,8 @@
 .gradient-button:active {
     transform: scale(0.95);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@media only screen and(max-width: 1000px) {
+    font-size: 0.8rem;
 }
