@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../src/css/table.css';
-const Table = ({ data, isLoading, error, isSuccess }) => {
+const Table = ({ data }) => {
 
     return (
         <div className="table-container">
@@ -13,7 +13,7 @@ const Table = ({ data, isLoading, error, isSuccess }) => {
                 </tr>
                 </thead>
                 <tbody>
-                {isSuccess && data && (
+                { data && (
                     data.map((item, index) => (
                         <tr key={index}>
                             <td>{item.name}</td>
@@ -21,7 +21,7 @@ const Table = ({ data, isLoading, error, isSuccess }) => {
                             <td>{item.txCount}</td>
                         </tr>
                     ))
-                )}
+                ) }
                 </tbody>
             </table>
         </div>

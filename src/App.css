@@ -19,7 +19,7 @@
   font-weight: bold;
 }
 
-.App-header, .App-body, .App-footer {
+.App-header, .App-body {
   background-color: #282c34;
   min-height: 10vh;
   display: flex;
@@ -79,3 +79,22 @@
   gap: 10px; /* Spacing between buttons */
   margin-top: 20px;
 }
+
+
+.footer {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding-bottom: 2rem;
+  background-color: #282c34;
+  flex-grow: 0;
+  font-size: 1.1rem;
+  font-weight: bold;
+  flex-shrink: 0;
+  flex-basis: auto;
+  position: fixed;
+  color: white;
+}
+
+
+
