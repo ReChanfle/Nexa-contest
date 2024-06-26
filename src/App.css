@@ -14,9 +14,17 @@
 }
 
 .question-style {
-  font-size: 1rem;
+  font-size: 1.2rem;
   color: #cccccc;
   font-weight: bold;
+}
+
+@media only screen and (max-width: 1000px) {
+  .question-style {
+    font-size: 1rem;
+    color: #cccccc;
+    font-weight: bold;
+  }
 }
 
 .App-header, .App-body {
@@ -72,6 +80,9 @@
   margin-top: 10px;
 }
 
+.anchor-color {
+  color: yellow;
+}
 
 .inline-buttons {
   display: flex;
@@ -80,6 +91,21 @@
   margin-top: 20px;
 }
 
+.inline-wrapper-gif {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Spacing between buttons */
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .inline-wrapper-gif {
+    width:80%;
+    height:auto;
+    gap: 5px; /* Decrease spacing between buttons */
+    margin-top: 10px; /* Reduce margin at the top */
+  }
+}
 
 .footer {
   bottom: 0;
@@ -88,7 +114,7 @@
   padding-bottom: 2rem;
   background-color: #282c34;
   flex-grow: 0;
-  font-size: 1.1rem;
+  font-size: 0.8rem;
   font-weight: bold;
   flex-shrink: 0;
   flex-basis: auto;
