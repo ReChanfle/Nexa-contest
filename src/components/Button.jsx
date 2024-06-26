@@ -1,23 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import '../../src/css/button.css';
+import '../../src/css/button-sm.css';
 import {useGetRichListsQuery} from "../redux/features/getRichListQuery";
 
 
-const Button = ({text, onClick, id}) => {
+const Button = ({text, onClick, id, small}) => {
 
-    const [fetchTrigger, setFetchTrigger] = useState(false);
-
-    const { data, error, isLoading, isSuccess, refetch } = useGetRichListsQuery(fetchTrigger);
-
-    const handleFetchData = () => {
-        setFetchTrigger(true);
-    };
+    const className =  small ? "gradient-button-sm" :  "gradient-button";
 
 
 
     return (
         <div>
-            <button className="gradient-button" onClick={onClick}  id={id} >
+            <button className={className} onClick={onClick}  id={id} >
                 {text}
             </button>
 

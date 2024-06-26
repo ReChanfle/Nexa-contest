@@ -8,7 +8,8 @@
     width: 80%;
     border-collapse: collapse;
     font-family: Arial, sans-serif;
-
+    border-radius: 8px; /* Rounded corners for the table */
+    overflow: hidden; /* Ensures the rounded corners are applied */
 }
 
 .table th,
@@ -20,6 +21,17 @@
 }
 
 .table th {
-    background: linear-gradient(45deg, #4a00e0, #8e2de2);
+    background:  linear-gradient(240deg, #4a00e0, #8e2de2);
     color: #ffffff;
+    border-top: none; /* Remove top border for table header */
+}
+
+.table th:first-child {
+    background: linear-gradient(45deg, #4a00e0, #8e2de2);
+    border-top-left-radius: 8px; /* Rounded top left corner for first th */
+}
+
+.table th:last-child {
+    background: linear-gradient(45deg, #4a00e0, #8e2de2);
+    border-top-right-radius: 8px; /* Rounded top right corner for last th */
 }

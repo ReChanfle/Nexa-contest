@@ -1,18 +1,20 @@
 import nexaLogo from './images/nexa-logo-mark-text-white.svg';
 import Button from '../src/components/Button';
 import './App.css';
-import {useGetRichListsQuery} from "./redux/features/getRichListQuery";
 import {useEffect, useState} from "react";
 import Input from "./components/Input";
-
+import {top5} from './utils/top5';
+import Table from "./components/Table";
+import gifError from './images/jp.gif';
 const App = () => {
 
-    const {data, error, isLoading, isSuccess, refetch} = useGetRichListsQuery();
 
     const [inputs, setInputs] = useState(['', '', '', '']);
     const [binaryString,setBinaryString] = useState('');
     const [clear, setClear] = useState(false);
-    const correctAnswer = ['1', '2', '3', '4']; // Replace with the correct answer
+    const correctAnswer = ['n', 'e', 'x', 'a'];
+    const [clickTop5, setClickTop5] = useState(false);
+    const [sendResponse, setSendResponse] = useState(false);
 
     const handleInputChange = (index, value) => {
         const newInputs = [...inputs];
@@ -27,7 +29,20 @@ const App = () => {
         if(e.target.id === "3") {
             setClear(true);
             setInputs(['', '', '', '']);
+
         }
+
+        if(e.target.id === "4") {
+            setSendResponse(true);
+        }
+        else
+            setSendResponse(false);
+
+        if(e.target.id === "2"){
+            setClickTop5(true);
+        }
+        else
+            setClickTop5(false);
 
     }
 
@@ -48,6 +63,9 @@ const App = () => {
 
 
     useEffect(() => {
+
+        document.title = 'NEXA Contest Proyect';
+
         const interval = setInterval(() => {
             const newBinaryString = generateBinaryString(1);
             setBinaryString(newBinaryString);
@@ -66,8 +84,10 @@ const App = () => {
                 </div>
             </header>
             <div className="question-container">
-                <p className="question-style">Aca quiero agregar un texto que sea una pregunta, que si la respuesta es correcta se muestran los 2
-                    botones de abajo, las cuatro lineas de abajo simbolizan 4 inputs</p>
+                <p className="question-style">I came to life on January 3rd, two thousand nine,
+                    A digital ledger, a creation so fine.
+                    My name's akin to a treasure most sought,
+                    What am I, can you give it a thought?</p>
                 <div className="inputs-container">
                     {inputs.map((input, index) => (
                         <Input
@@ -81,13 +101,29 @@ const App = () => {
                     ))}
                 </div>
             </div>
-            <Button text={"Clear"}  id={"3"} onClick={handleClick} />
-            {isAnswerCorrect && (
+            <div className="inline-buttons">
+                <Button text={"Clear"}  id={"3"} onClick={handleClick} small={true} />
+                <Button text={"Send"}  id={"4"} onClick={handleClick} small={true} />
+            </div>
+            {(isAnswerCorrect && sendResponse) ? (
                 <div className="inline-buttons">
-                    <Button text={"Total network transactions"} id={"1"} onClick={handleClick}/>
-                    <Button text={"Top 20"} id={"2"} onClick={handleClick} />
+                    <Button text={"Top 5"} id={"2"} onClick={handleClick} small={false} />
                 </div>
+            ) : (
+                (sendResponse && !isAnswerCorrect) && (
+                    <div className="inline-buttons">
+                        <img src={gifError} alt="GIF alternativo"/>
+                    </div>
+                )
             )}
+            {(isAnswerCorrect && clickTop5) && (
+
+                <Table data={top5} />
+            )}
+           <div className="footer">
+               &copy; 2024 NEXA. All rights reserved.
+               Created by Sebastian Cabeza for the NEXA Contest.
+           </div>
         </div>);
 
 };

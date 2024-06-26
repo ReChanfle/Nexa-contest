@@ -6,13 +6,26 @@ const baseQuery = fetchBaseQuery({
     baseUrl: process.env.NEXA_API,
 });
 
-export const richListApi = createApi({
-    reducerPath: 'richListApi',
+
+const api = createApi({
+    reducerPath: 'api',
     baseQuery,
     keepUnusedDataFor: 5,
     endpoints: (builder) => ({
-        getRichLists: builder.query({
+        getTop: builder.query({
             query: () => 'tokens/top?max=20',
+            transformResponse: (response ) =>{
+                console.log(response);
+                if (response.headers.get('content-type')?.includes('application/json')) {
+                    return response.length > 0 ? response : [];
+                } else {
+                    // Handle non-JSON response (like HTML)
+                    throw new Error('Received non-JSON response');
+                }
+            } ,
+        }),
+        getTxCount: builder.query({
+            query: () => 'transactions/count',
             transformResponse: (response ) =>{
                 console.log(response);
                 if (response.headers.get('content-type')?.includes('application/json')) {
@@ -26,15 +39,16 @@ export const richListApi = createApi({
     }),
 });
 
-const richListPersistConfig = {
-    key: 'richListApi',
+const apiPersistConfig = {
+    key: 'api',
     storage,
 };
 
-export const persistedRichListApiReducer = persistReducer(
-    richListPersistConfig,
-    richListApi.reducer
+export const persistedApiReducer = persistReducer(
+    apiPersistConfig,
+    api.reducer
 );
 
-export const { useGetRichListsQuery } = richListApi;
-export const richListApiMiddleware = richListApi.middleware;
+export const { useGetsQuery } = api;
+export const { endpoints, reducerPath, reducer, middleware } = api
+
