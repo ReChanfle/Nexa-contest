@@ -3,16 +3,25 @@ import Button from '../src/components/Button';
 import './App.css';
 import {useEffect, useState} from "react";
 import Input from "./components/Input";
-import {top5} from './utils/top5';
 import Table from "./components/Table";
 import gifError from './images/jp.gif';
+import {useGetRichListsQuery} from "./redux/features/getRichListQuery";
+
+/**
+ * App Component
+ *
+ * This is the main component of the NEXA Contest Project. It includes the core functionality
+ * and user interface for the application, such as handling user inputs, validating answers,
+ * and displaying content conditionally based on user interactions.
+ */
 const App = () => {
 
-
+    const { data, error, isLoading } = useGetRichListsQuery(true);
     const [inputs, setInputs] = useState(['', '', '', '']);
-    const [binaryString,setBinaryString] = useState('');
+    const [binaryString, setBinaryString] = useState('');
     const [clear, setClear] = useState(false);
     const correctAnswer = ['n', 'e', 'x', 'a'];
+    const correctAnswerUpper = ['N', 'E', 'X', 'A'];
     const [clickTop5, setClickTop5] = useState(false);
     const [sendResponse, setSendResponse] = useState(false);
 
@@ -22,26 +31,31 @@ const App = () => {
         setInputs(newInputs);
     };
 
-    const isAnswerCorrect = inputs.every((input, index) => input === correctAnswer[index]);
+
+    const isAnswerCorrect = inputs.every((input, index) => {
+        if (input === correctAnswer[index])
+            return true;
+        return input === correctAnswerUpper[index];
+
+    });
 
     const handleClick = (e) => {
 
-        if(e.target.id === "3") {
+        if (e.target.id === "3") {
             setClear(true);
             setInputs(['', '', '', '']);
 
         }
 
-        if(e.target.id === "4") {
+        if (e.target.id === "4") {
             setSendResponse(true);
-        }
-        else
+        } else
             setSendResponse(false);
 
-        if(e.target.id === "2"){
+        if (e.target.id === "2") {
+            console.log(data);
             setClickTop5(true);
-        }
-        else
+        } else
             setClickTop5(false);
 
     }
@@ -75,7 +89,6 @@ const App = () => {
     }, []);
 
 
-
     return (
         <div className="App">
             <header className="App-header">
@@ -102,28 +115,29 @@ const App = () => {
                 </div>
             </div>
             <div className="inline-buttons">
-                <Button text={"Clear"}  id={"3"} onClick={handleClick} small={true} />
-                <Button text={"Send"}  id={"4"} onClick={handleClick} small={true} />
+                <Button text={"Clear"} id={"3"} onClick={handleClick} small={true}/>
+                <Button text={"Send"} id={"4"} onClick={handleClick} small={true}/>
             </div>
             {(isAnswerCorrect && sendResponse) ? (
                 <div className="inline-buttons">
-                    <Button text={"Top 5"} id={"2"} onClick={handleClick} small={false} />
+                    <Button text={"Top 10 tokens"} id={"2"} onClick={handleClick} small={false}/>
                 </div>
             ) : (
                 (sendResponse && !isAnswerCorrect) && (
                     <div className="inline-buttons">
-                        <img src={gifError} alt="GIF alternativo"/>
+                        <img className="inline-wrapper-gif" src={gifError} alt="GIF alternativo"/>
                     </div>
                 )
             )}
             {(isAnswerCorrect && clickTop5) && (
 
-                <Table data={top5} />
+                <Table data={data} isLoading={isLoading} error={error} />
             )}
-           <div className="footer">
-               &copy; 2024 NEXA. All rights reserved.
-               Created by Sebastian Cabeza for the NEXA Contest.
-           </div>
+            <div className="footer">
+                &copy; 2024 <a href="https://www.nexa.org" target="_blank" className="anchor-color" rel='noopener noreferrer'>NEXA</a>. All rights
+                reserved.
+                Created by Sebastian Cabeza for the NEXA Contest.
+            </div>
         </div>);
 
 };

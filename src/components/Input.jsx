@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import '../../src/css/input.css';
 
-const Input = ({ value, onChange, binaryString, clear, resetAnimation }) => {
+const Input = ({value, onChange, binaryString, clear, resetAnimation}) => {
+
     const [inputValue, setInputValue] = useState('');
     const [trigger, setTrigger] = useState(false);
 
 
     useEffect(() => {
-        if(!trigger)
-        setInputValue(binaryString);
+        if (!trigger)
+            setInputValue(binaryString);
         else
             setInputValue(value);
-        
-        if(clear && trigger) {
+
+        if (clear && trigger) {
             setTrigger(false);
             resetAnimation(false);
             setInputValue('');
@@ -27,7 +28,7 @@ const Input = ({ value, onChange, binaryString, clear, resetAnimation }) => {
         onChange(e);
     };
 
-    const handleClear = (e) => {
+    const handleClear = () => {
         setTrigger(true);
     };
 
